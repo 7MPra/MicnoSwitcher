@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=TunesSwitcher
+Comment=操作モードの変更
+Categories=Utility;
+Type=Application
+Exec=tunes-switcher
+Icon=/usr/share/pixmaps/tunes.svg
+Terminal=false
+NoDisplay=false

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ ! -d ~/.config/tunes/ ]]; then
+	mkdir ~/.config/tunes/
+fi
+
+if [[ ! -f ~/.config/tunes/paneltype.dat ]]; then
+	if [[ -z `pgrep plank` ]]; then
+		xdg-open /usr/share/applications/plank.desktop
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp /usr/share/micno/xfce4-panel-M.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeM
+EOF
+	xfce4-panel
+else
+	if [[ `cat ~/.config/tunes/paneltype.dat` = "modeM" ]]; then
+		if [[ -z `pgrep plank` ]]; then
+			xdg-open /usr/share/applications/plank.desktop
+		fi
+	fi
+fi

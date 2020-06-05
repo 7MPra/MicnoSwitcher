@@ -1,0 +1,64 @@
+#!/bin/bash
+if [[ ! -d ~/.config/tunes/ ]]; then
+	mkdir ~/.config/tunes/
+	cp /usr/share/tunes/xfce4-panel-*.xml ~/.config/tunes/
+fi
+
+if [[ ! -f ~/.config/autostart/tunes-checker.desktop ]]; then
+	cat <<EOF > ~/.config/autostart/tunes-checker.desktop
+[Desktop Entry]
+Name=TunesChecker
+GenericName=Dock
+Comment=デスクトップモード(typeM)の場合のみPlankを起動する
+Categories=Utility;
+Type=Application
+Exec=tunes-checker
+Icon=/usr/share/pixmaps/tunes.svg
+Terminal=false
+NoDisplay=false
+EOF
+fi
+
+if [[ `cat ~/.config/tunes/paneltype.dat` = "modeT" ]]; then
+	cp ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ~/.config/tunes/xfce4-panel-T.xml
+elif [[ `cat ~/.config/tunes/paneltype.dat` = "modeW" ]]; then
+	cp ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ~/.config/tunes/xfce4-panel-W.xml
+elif [[ `cat ~/.config/tunes/paneltype.dat` = "modeM" ]]; then
+	cp ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ~/.config/tunes/xfce4-panel-M.xml
+fi
+
+type=`zenity --list --window-icon=/usr/share/pixmaps/tunes.svg --title "Tunes Switcher" --text="モードを選んでください" --column "モード名" "タブレットモード" "デスクトップモード(TypeM)" "デスクトップモード(TypeW)"`
+if [[ $type = "タブレットモード" ]]; then
+	if [[ `pgrep plank` ]]; then
+		pkill plank
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp ~/.config/tunes/xfce4-panel-T.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeT
+EOF
+	xfce4-panel &
+elif [[ $type = "デスクトップモード(TypeM)" ]]; then
+	if [[ -z `pgrep plank` ]]; then
+		xdg-open /usr/share/applications/plank.desktop
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp ~/.config/tunes/xfce4-panel-M.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeM
+EOF
+	xfce4-panel &
+elif [[ $type = "デスクトップモード(TypeW)" ]]; then
+	if [[ `pgrep plank` ]]; then
+		pkill plank
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp ~/.config/tunes/xfce4-panel-W.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeW
+EOF
+	xfce4-panel &
+fi

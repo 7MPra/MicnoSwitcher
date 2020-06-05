@@ -1,0 +1,8 @@
+Package: tunes-switcher
+Version: 0.1.0
+Architecture: all
+Maintainer: TMP_tenpura <tmptenpura@gmail.com>
+Depends: bash, zenity, plank, xfce4-panel
+Section: utils
+Priority: optional
+Description: 簡単に3種類のパネルの配置に変更できるXfce4用のツール
