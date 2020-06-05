@@ -1,8 +1,8 @@
 #!/bin/bash
 if [[ ! -d ~/.config/tunes/ ]]; then
 	mkdir ~/.config/tunes/
-	touch ~/.config/tunes/
-	cp /usr/share/tunes/xfce4-panel-*.xml ~/.config/tunes/paneltype.dat
+	touch ~/.config/tunes/paneltype.dat
+	cp /usr/share/tunes/xfce4-panel-*.xml ~/.config/tunes/
 fi
 
 if [[ ! -f ~/.config/autostart/tunes-checker.desktop ]]; then
