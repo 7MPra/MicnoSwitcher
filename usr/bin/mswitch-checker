@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [[ ! -d ~/.config/tunes/ ]]; then
-	mkdir ~/.config/tunes/
+if [[ ! -d ~/.config/mswitch/ ]]; then
+	mkdir ~/.config/mswitch/
 fi
 
-if [[ ! -f ~/.config/tunes/paneltype.dat ]]; then
+if [[ ! -f ~/.config/mswitch/paneltype.dat ]]; then
 	if [[ -z `pgrep plank` ]]; then
 		xdg-open /usr/share/applications/plank.desktop
 	fi
