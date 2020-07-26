@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=MicnoSwitcher
-Comment=操作モードの変更
-Categories=Utility;
-Type=Application
-Exec=micno-switcher
-Icon=/usr/share/pixmaps/switcher.svg
-Terminal=false
-NoDisplay=false
