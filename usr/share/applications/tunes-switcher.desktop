@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=TunesSwitcher
+Name=MicnoSwitcher
 Comment=操作モードの変更
 Categories=Utility;
 Type=Application
-Exec=tunes-switcher
-Icon=/usr/share/pixmaps/tunes.svg
+Exec=micno-switcher
+Icon=/usr/share/pixmaps/switcher.svg
 Terminal=false
 NoDisplay=false
