@@ -1,0 +1,65 @@
+#!/bin/bash
+if [[ ! -d ~/.config/mswitch/ ]]; then
+	mkdir ~/.config/mswitch/
+	touch ~/.config/mswitch/paneltype.dat
+	cp /usr/share/mswitch/xfce4-panel-*.xml ~/.config/mswitch/
+fi
+
+if [[ ! -f ~/.config/autostart/mswitch-checker.desktop ]]; then
+	cat <<EOF > ~/.config/autostart/mswitch-checker.desktop
+[Desktop Entry]
+Name=MSwitchChecker
+GenericName=Dock
+Comment=MicnoSwitcherでデスクトップモード(typeM)を選択した場合のみPlankを起動する
+Categories=Utility;
+Type=Application
+Exec=mswitch-checker
+Icon=/usr/share/pixmaps/switcher.svg
+Terminal=false
+NoDisplay=false
+EOF
+fi
+
+if [[ `cat ~/.config/mswitch/paneltype.dat` = "modeT" ]]; then
+	cp ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ~/.config/tunes/xfce4-panel-T.xml
+elif [[ `cat ~/.config/mswitch/paneltype.dat` = "modeW" ]]; then
+	cp ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ~/.config/tunes/xfce4-panel-W.xml
+elif [[ `cat ~/.config/mswitch/paneltype.dat` = "modeM" ]]; then
+	cp ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ~/.config/tunes/xfce4-panel-M.xml
+fi
+
+type=`zenity --list --window-icon=/usr/share/pixmaps/switcher.svg --title "Micno Switcher" --text="モードを選んでください" --column "モード名" "タブレットモード" "デスクトップモード(TypeM)" "デスクトップモード(TypeW)"`
+if [[ $type = "タブレットモード" ]]; then
+	if [[ `pgrep plank` ]]; then
+		pkill plank
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp ~/.config/mswitch/xfce4-panel-T.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeT
+EOF
+	xfce4-panel &
+elif [[ $type = "デスクトップモード(TypeM)" ]]; then
+	if [[ -z `pgrep plank` ]]; then
+		xdg-open /usr/share/applications/plank.desktop
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp ~/.config/mswitch/xfce4-panel-M.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeM
+EOF
+	xfce4-panel &
+elif [[ $type = "デスクトップモード(TypeW)" ]]; then
+	if [[ `pgrep plank` ]]; then
+		pkill plank
+	fi
+	xfce4-panel --quit
+	pkill xfconfd
+	cp ~/.config/mswitch/xfce4-panel-W.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+	cat <<EOF > ~/.config/tunes/paneltype.dat
+modeW
+EOF
+	xfce4-panel &
+fi
