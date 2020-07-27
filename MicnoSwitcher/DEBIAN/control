@@ -1,5 +1,5 @@
-Package: tunes-switcher
-Version: 0.1.0
+Package: micno-switcher
+Version: 0.2.0
 Architecture: all
 Maintainer: TMP_tenpura <tmptenpura@gmail.com>
 Depends: bash, zenity, plank, xfce4-panel
