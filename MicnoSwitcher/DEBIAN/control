@@ -1,5 +1,5 @@
 Package: micno-switcher
-Version: 0.2.0
+Version: 0.2.1
 Architecture: all
 Maintainer: TMP_tenpura <tmptenpura@gmail.com>
 Depends: bash, zenity, plank, xfce4-panel
