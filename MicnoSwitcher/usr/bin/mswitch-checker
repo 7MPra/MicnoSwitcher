@@ -11,12 +11,12 @@ if [[ ! -f ~/.config/mswitch/paneltype.dat ]]; then
 	xfce4-panel --quit
 	pkill xfconfd
 	cp /usr/share/micno/xfce4-panel-M.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-	cat <<EOF > ~/.config/tunes/paneltype.dat
+	cat <<EOF > ~/.config/mswitch/paneltype.dat
 modeM
 EOF
 	xfce4-panel
 else
-	if [[ `cat ~/.config/tunes/paneltype.dat` = "modeM" ]]; then
+	if [[ `cat ~/.config/mswitch/paneltype.dat` = "modeM" ]]; then
 		if [[ -z `pgrep plank` ]]; then
 			xdg-open /usr/share/applications/plank.desktop
 		fi
