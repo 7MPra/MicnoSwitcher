@@ -36,7 +36,7 @@ if [[ $type = "タブレットモード" ]]; then
 	xfce4-panel --quit
 	pkill xfconfd
 	cp ~/.config/mswitch/xfce4-panel-T.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-	cat <<EOF > ~/.config/tunes/paneltype.dat
+	cat <<EOF > ~/.config/mswitch/paneltype.dat
 modeT
 EOF
 	xfce4-panel &
@@ -47,7 +47,7 @@ elif [[ $type = "デスクトップモード(TypeM)" ]]; then
 	xfce4-panel --quit
 	pkill xfconfd
 	cp ~/.config/mswitch/xfce4-panel-M.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-	cat <<EOF > ~/.config/tunes/paneltype.dat
+	cat <<EOF > ~/.config/mswitch/paneltype.dat
 modeM
 EOF
 	xfce4-panel &
@@ -58,7 +58,7 @@ elif [[ $type = "デスクトップモード(TypeW)" ]]; then
 	xfce4-panel --quit
 	pkill xfconfd
 	cp ~/.config/mswitch/xfce4-panel-W.xml ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-	cat <<EOF > ~/.config/tunes/paneltype.dat
+	cat <<EOF > ~/.config/mswitch/paneltype.dat
 modeW
 EOF
 	xfce4-panel &
